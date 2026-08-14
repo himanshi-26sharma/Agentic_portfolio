@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "Which projects are related to computer vision?"
+  },
+  {
+    "role": "assistant",
+    "content": "Himanshi has a project related to computer vision called **P&ID Vision Agent**.\n\nThis project involves building a computer vision agent that can detect and analyze symbols in P&ID diagrams. It addresses the problem of time-consuming manual identification of engineering symbols by creating a vision pipeline for detection and further analysis, supporting engineering reporting.\n\n**Key Details:**\n*   **Domain:** Computer Vision\n*   **Technologies:** Python, YOLO, Computer Vision, P&ID Analysis\n*   **Features:** Object detection, Symbol identification, P&ID analysis, and Engineering report generation."
+  },
+  {
+    "role": "user",
+    "content": "Which project uses YOLO?"
+  },
+  {
+    "role": "assistant",
+    "content": "The project that uses YOLO is **P&ID Vision Agent**.\n\nThis computer vision agent was built to detect and analyze symbols within P&ID diagrams. It utilizes a vision pipeline where YOLO performs object detection, followed by symbol identification and relationship analysis to support engineering reporting."
+  }
+]

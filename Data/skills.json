@@ -1,0 +1,36 @@
+{
+  "programming": [
+    "Python",
+    "SQL"
+  ],
+  "data_analytics": [
+    "Power BI",
+    "Tableau",
+    "Statistics",
+    "Pandas",
+    "NumPy"
+  ],
+  "ai_and_ml": [
+    "Machine Learning",
+    "Generative AI",
+    "RAG",
+    "Agentic AI",
+    "AI Agents",
+    "Embeddings",
+    "Vector Databases",
+    "MCP"
+  ],
+  "frameworks_and_tools": [
+    "Flask",
+    "LangGraph",
+    "Git",
+    "GitHub",
+    "Jupyter Notebook",
+    "FAISS",
+    "Ollama"
+  ],
+  "databases": [
+    "SQLite",
+    "SQL"
+  ]
+}

@@ -1,0 +1,115 @@
+[
+  {
+    "name": "Agentic RAG Research Assistant",
+    "domain": "Generative AI",
+    "type": "Agentic AI",
+    "technologies": [
+      "Python",
+      "RAG",
+      "Embeddings",
+      "FAISS",
+      "LangGraph",
+      "Ollama"
+    ],
+    "description": "An AI research assistant that processes documents, retrieves relevant information and uses an agentic workflow to generate answers.",
+    "problem": "Users need to retrieve useful information from large documents without manually searching through them.",
+    "solution": "Documents are processed into embeddings and stored in a vector database. An agent performs retrieval, evaluates relevance and generates an answer using an LLM.",
+    "architecture": "PDF/document → embeddings → vector database → agentic retrieval → verification → answer",
+    "key_features": [
+      "Document processing",
+      "Semantic search",
+      "RAG",
+      "Agentic retrieval",
+      "Query rewriting",
+      "Verification"
+    ]
+  },
+  {
+    "name": "Autonomous Data Analyst",
+    "domain": "Data Analytics",
+    "type": "AI Agent",
+    "technologies": [
+      "Python",
+      "SQL",
+      "Pandas",
+      "Data Analysis",
+      "Visualization"
+    ],
+    "description": "An AI-powered data analysis system that understands datasets, performs analysis and generates insights.",
+    "problem": "Analyzing datasets manually requires multiple steps including data understanding, querying, analysis and visualization.",
+    "solution": "An AI agent analyzes the dataset, determines the required operations and uses Python or SQL to generate insights and visualizations.",
+    "architecture": "CSV/Excel → data understanding → Python/SQL → analysis → visualization → insights",
+    "key_features": [
+      "Dataset understanding",
+      "Python analysis",
+      "SQL analysis",
+      "Visualization",
+      "Automated insights"
+    ]
+  },
+  {
+    "name": "MCP-Powered Personal Assistant",
+    "domain": "Agentic AI",
+    "type": "MCP System",
+    "technologies": [
+      "Python",
+      "AI Agents",
+      "MCP",
+      "Tools",
+      "LLM"
+    ],
+    "description": "An AI assistant that interacts with external resources through Model Context Protocol tools.",
+    "problem": "AI agents need standardized ways to interact with external tools and resources.",
+    "solution": "The AI agent uses MCP to discover and interact with tools such as filesystem, database and GitHub resources.",
+    "architecture": "AI Agent → MCP → filesystem/database/GitHub tools",
+    "key_features": [
+      "MCP integration",
+      "Tool calling",
+      "External resource access",
+      "AI agent orchestration"
+    ]
+  },
+  {
+    "name": "Multi-Agent Recruitment System",
+    "domain": "Recruitment",
+    "type": "Multi-Agent System",
+    "technologies": [
+      "Python",
+      "AI Agents",
+      "LLM",
+      "Multi-Agent Systems"
+    ],
+    "description": "A multi-agent recruitment system that uses specialized agents for resume analysis, job description analysis, candidate matching and interview recommendations.",
+    "problem": "Recruitment involves multiple stages that can require significant manual effort.",
+    "solution": "Specialized AI agents divide recruitment tasks and collaborate to produce candidate recommendations.",
+    "architecture": "Resume Agent → JD Agent → Matching Agent → Interview Agent → Recommendation",
+    "key_features": [
+      "Multi-agent architecture",
+      "Resume analysis",
+      "Job description analysis",
+      "Candidate matching",
+      "Interview recommendations"
+    ]
+  },
+  {
+    "name": "P&ID Vision Agent",
+    "domain": "Computer Vision",
+    "type": "Vision Agent",
+    "technologies": [
+      "Python",
+      "YOLO",
+      "Computer Vision",
+      "P&ID Analysis"
+    ],
+    "description": "A computer vision agent designed to detect and analyze symbols in P&ID diagrams.",
+    "problem": "Identifying engineering symbols in P&ID diagrams manually can be time-consuming.",
+    "solution": "A vision pipeline detects symbols in P&ID images and performs further analysis to support engineering reporting.",
+    "architecture": "P&ID image → YOLO detection → symbol identification → relationship analysis → engineering report",
+    "key_features": [
+      "Object detection",
+      "Symbol identification",
+      "P&ID analysis",
+      "Engineering report generation"
+    ]
+  }
+]

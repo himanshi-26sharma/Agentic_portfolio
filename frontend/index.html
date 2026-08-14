@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Himanshi's AI Crew — Cabinet of Curiosities
+    </title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+</head>
+
+
+<body>
+
+<div class="woodgrain"></div>
+
+
+<div class="app">
+
+
+    <!-- PLAQUE HEADER -->
+
+    <header class="plaque">
+
+        <div class="plaque-plate">
+
+            <span class="plaque-eyebrow">EXHIBIT&nbsp;NO.&nbsp;01</span>
+
+            <h1>
+                Himanshi's <em>AI Crew</em>
+            </h1>
+
+            <p class="plaque-sub">
+                Three specimens. One field log.
+                Approach the glass.
+            </p>
+
+        </div>
+
+        <div class="index-card">
+
+            <span class="index-pin"></span>
+
+            <div class="index-card-body">
+
+                <strong>Curator's note</strong>
+
+                <p>
+                    I'm the host of this collection.
+                    Tap a specimen to wake it, or write
+                    directly in the field log below.
+                </p>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- VITRINE -->
+
+    <section class="vitrine">
+
+        <!-- BUBBLY : TANK -->
+
+        <article
+            class="specimen bubbly"
+            data-agent="bubbly"
+            tabindex="0">
+
+            <div class="habitat-wrap">
+
+                <div class="tank">
+
+                    <span class="bubble bb1"></span>
+                    <span class="bubble bb2"></span>
+                    <span class="bubble bb3"></span>
+                    <span class="bubble bb4"></span>
+                    <span class="bubble bb5"></span>
+
+                    <span class="creature-face">🫧</span>
+
+                    <span class="water-line"></span>
+
+                </div>
+
+            </div>
+
+            <div class="label">
+
+                <span class="label-no">SPECIMEN&nbsp;01</span>
+
+                <h2>Bubbly</h2>
+
+                <span class="label-tag">HABITAT · PROJECT TANK</span>
+
+                <p>
+                    Curious what Himanshi has built?
+                    Bubbly surfaces her projects, tools
+                    and AI experiments.
+                </p>
+
+                <div class="traits">
+                    <span>Projects</span>
+                    <span>RAG</span>
+                    <span>AI</span>
+                    <span>Computer Vision</span>
+                </div>
+
+                <button class="wake-button">
+                    Tap the glass <em>→</em>
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- MOCHI : PLATE -->
+
+        <article
+            class="specimen mochi"
+            data-agent="mochi"
+            tabindex="0">
+
+            <div class="habitat-wrap short">
+
+                <div class="plate"></div>
+
+                <div class="mochi-blob">
+                    <span class="creature-face">🍡</span>
+                </div>
+
+            </div>
+
+            <div class="label">
+
+                <span class="label-no">SPECIMEN&nbsp;02</span>
+
+                <h2>Mochi</h2>
+
+                <span class="label-tag">HABITAT · SKILL PLATE</span>
+
+                <p>
+                    Want to know what Himanshi can do?
+                    Mochi knows her toolkit — languages,
+                    frameworks, AI/ML skills.
+                </p>
+
+                <div class="traits">
+                    <span>Python</span>
+                    <span>SQL</span>
+                    <span>AI/ML</span>
+                    <span>Data</span>
+                </div>
+
+                <button class="wake-button">
+                    Give it a poke <em>→</em>
+                </button>
+
+            </div>
+
+        </article>
+
+
+        <!-- POPPY : POT -->
+
+        <article
+            class="specimen poppy"
+            data-agent="poppy"
+            tabindex="0">
+
+            <div class="habitat-wrap tall">
+
+                <div class="stem">
+
+                    <div class="flower">
+
+                        <span class="petal pp1"></span>
+                        <span class="petal pp2"></span>
+                        <span class="petal pp3"></span>
+                        <span class="petal pp4"></span>
+                        <span class="petal pp5"></span>
+
+                        <span class="creature-face">🌷</span>
+
+                    </div>
+
+                </div>
+
+                <div class="pot"></div>
+
+            </div>
+
+            <div class="label">
+
+                <span class="label-no">SPECIMEN&nbsp;03</span>
+
+                <h2>Poppy</h2>
+
+                <span class="label-tag">HABITAT · RESUME POT</span>
+
+                <p>
+                    Poppy knows the story behind the resume
+                    — education, experience, certifications,
+                    the whole career.
+                </p>
+
+                <div class="traits">
+                    <span>Resume</span>
+                    <span>Education</span>
+                    <span>Experience</span>
+                    <span>Career</span>
+                </div>
+
+                <button class="wake-button">
+                    Water it <em>→</em>
+                </button>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- FIELD LOG -->
+
+    <section class="field-log">
+
+        <div class="log-heading">
+
+            <div class="log-heading-left">
+
+                <span class="live-dot"></span>
+
+                <span class="log-label">FIELD LOG ·</span>
+
+                <span id="activeAgent">AI Crew</span>
+
+            </div>
+
+            <button id="clearChat">
+                Clear log
+            </button>
+
+        </div>
+
+
+        <div
+            id="chatMessages"
+            class="chat-messages">
+
+            <div class="bot-message">
+
+                <div class="bot-avatar">✨</div>
+
+                <div>
+                    <strong>Himanshi's AI Crew</strong>
+                    <p>
+                        Hey! 👋
+                        I'm here to introduce you
+                        to Bubbly, Mochi and Poppy.
+                        Tap a specimen above or just
+                        start writing in the log.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="chat-input">
+
+            <textarea
+                id="messageInput"
+                placeholder="Write an entry..."
+                rows="1">
+            </textarea>
+
+            <button id="sendButton">
+                Send
+                <span>➜</span>
+            </button>
+
+        </div>
+
+
+        <div class="suggestions">
+
+            <button>Tell me about the projects</button>
+            <button>What skills does Himanshi have?</button>
+            <button>Give me a tour of her resume</button>
+            <button>I want to connect with Himanshi</button>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <div class="stamp">
+            <span>CATALOGUED&nbsp;WITH</span>
+            <strong>Gemma 4 · RAG · LangGraph · MCP · Memory</strong>
+        </div>
+
+    </footer>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
