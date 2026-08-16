@@ -1,8 +1,11 @@
 import json
+import contextlib
+import io
+import sys
+
 from pathlib import Path
 
 from mcp.server.mcpserver import MCPServer
-from tools import search_skills
 
 
 # ============================================================
@@ -33,7 +36,7 @@ PROJECTS_FILE = (
 
 
 # ============================================================
-# MCP TOOL
+# PROJECT SEARCH TOOL
 # ============================================================
 
 @mcp.tool()
@@ -54,13 +57,11 @@ def search_projects(query: str) -> list:
 
         projects = json.load(file)
 
-
     query_words = set(
         query.lower().split()
     )
 
     results = []
-
 
     for project in projects:
 
@@ -112,16 +113,13 @@ def search_projects(query: str) -> list:
 
         ]).lower()
 
-
         score = 0
-
 
         for word in query_words:
 
             if word in searchable_text:
 
                 score += 1
-
 
         if score > 0:
 
@@ -133,14 +131,13 @@ def search_projects(query: str) -> list:
 
             })
 
-
     results.sort(
         key=lambda x: x["score"],
         reverse=True
     )
 
-
     return results[:5]
+
 
 # ============================================================
 # SKILL SEARCH TOOL
@@ -156,49 +153,24 @@ def search_skills_mcp(query: str) -> list:
     tools, and databases.
     """
 
-    result = search_skills.invoke({
-        "query": query
-    })
-
-    return result
-
-# ============================================================
-# PORTFOLIO RAG TOOL
-# ============================================================
-@mcp.tool()
-def portfolio_rag(query: str) -> list:
-    """
-    Search the complete Himanshi portfolio
-    knowledge base using semantic retrieval.
-    """
-
-    import contextlib
-    import io
-    import sys
-
-    # Import here so initialization messages
-    # do not interfere with MCP stdout.
-    from retriever import PortfolioRetriever
-
-
-    # --------------------------------------------------
-    # INITIALIZE RETRIEVER
-    # --------------------------------------------------
+    # Import here so any initialization output
+    # can be captured.
+    from tools import search_skills
 
     captured_output = io.StringIO()
 
-    with contextlib.redirect_stdout(captured_output):
+    with contextlib.redirect_stdout(
+        captured_output
+    ):
 
-        retriever = PortfolioRetriever()
+        result = search_skills.invoke({
+            "query": query
+        })
 
-        results = retriever.search(
-            query,
-            top_k=5
-        )
-
-
-    # Send diagnostic output to stderr instead.
-    diagnostic_output = captured_output.getvalue()
+    # Send diagnostic output to stderr.
+    diagnostic_output = (
+        captured_output.getvalue()
+    )
 
     if diagnostic_output:
 
@@ -208,10 +180,51 @@ def portfolio_rag(query: str) -> list:
             end=""
         )
 
+    return result
 
-    # --------------------------------------------------
+
+# ============================================================
+# PORTFOLIO RAG TOOL
+# ============================================================
+
+@mcp.tool()
+def portfolio_rag(query: str) -> list:
+    """
+    Search the complete Himanshi portfolio
+    knowledge base using semantic retrieval.
+    """
+
+    from retriever import PortfolioRetriever
+
+    captured_output = io.StringIO()
+
+    with contextlib.redirect_stdout(
+        captured_output
+    ):
+
+        retriever = PortfolioRetriever()
+
+        results = retriever.search(
+            query,
+            top_k=5
+        )
+
+    # Send diagnostic output to stderr.
+    diagnostic_output = (
+        captured_output.getvalue()
+    )
+
+    if diagnostic_output:
+
+        print(
+            diagnostic_output,
+            file=sys.stderr,
+            end=""
+        )
+
+    # --------------------------------------------------------
     # NO RESULTS
-    # --------------------------------------------------
+    # --------------------------------------------------------
 
     if not results:
 
@@ -223,13 +236,11 @@ def portfolio_rag(query: str) -> list:
             }
         ]
 
-
-    # --------------------------------------------------
+    # --------------------------------------------------------
     # FORMAT RESULTS
-    # --------------------------------------------------
+    # --------------------------------------------------------
 
     formatted_results = []
-
 
     for result in results:
 
@@ -257,15 +268,20 @@ def portfolio_rag(query: str) -> list:
 
         })
 
-
     return formatted_results
+
+
 # ============================================================
 # START SERVER
 # ============================================================
 
 if __name__ == "__main__":
 
-
+    # IMPORTANT:
+    # Do not use print() here.
+    #
+    # MCP stdio transport uses stdout for JSON-RPC
+    # communication.
 
     mcp.run(
         transport="stdio"

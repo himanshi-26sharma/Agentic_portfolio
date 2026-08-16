@@ -1,30 +1,46 @@
-const API_URL =
-    "http://127.0.0.1:8000/chat";
+/* =========================================================
+   HIMANSHI AI PORTFOLIO
+   Frontend → FastAPI → Agent Router → MCP → Tools/RAG
+========================================================= */
 
+
+/* =========================================================
+   CONFIGURATION
+========================================================= */
+
+const API_URL = "http://127.0.0.1:8000";
 
 let selectedAgent = null;
 
 
-const messages =
-    document.getElementById(
-        "chatMessages"
-    );
+/* =========================================================
+   DOM ELEMENTS
+========================================================= */
 
-const input =
-    document.getElementById(
-        "messageInput"
-    );
+const messages = document.getElementById(
+    "chatMessages"
+);
 
-const sendButton =
-    document.getElementById(
-        "sendButton"
-    );
+const input = document.getElementById(
+    "messageInput"
+);
 
-const activeAgent =
-    document.getElementById(
-        "activeAgent"
-    );
+const sendButton = document.getElementById(
+    "sendButton"
+);
 
+const activeAgent = document.getElementById(
+    "activeAgent"
+);
+
+const clearChat = document.getElementById(
+    "clearChat"
+);
+
+
+/* =========================================================
+   AGENT INFORMATION
+========================================================= */
 
 const agentNames = {
 
@@ -35,14 +51,45 @@ const agentNames = {
         "🍡 Mochi — Skill Guide",
 
     poppy:
-        "🌷 Poppy — Resume Guide"
+        "🌷 Poppy — Resume Guide",
+
+    general:
+        "✨ Himanshi's AI Crew"
 
 };
 
 
-/* =====================================
+/* =========================================================
+   AGENT GREETINGS
+========================================================= */
+
+const agentGreetings = {
+
+    bubbly:
+        "Bubbly here! 🫧 I'm Himanshi's Project Guide. " +
+        "I'll take you on a tour of her projects, AI systems, " +
+        "computer vision work, RAG pipelines and more. " +
+        "Ask me anything about what she's built!",
+
+    mochi:
+        "Mochi here! 🍡 I'm Himanshi's Skill Guide. " +
+        "Let's explore her technical toolkit — programming, " +
+        "AI, data analytics, frameworks, databases and all " +
+        "the technologies she works with!",
+
+    poppy:
+        "Poppy here! 🌷 I'm Himanshi's Resume Guide. " +
+        "I'll walk you through her education, experience, " +
+        "internships, certifications and professional journey.",
+
+    general:
+        "Hi there! ✨ Himanshi's AI crew is ready to help you explore her portfolio."
+};
+
+
+/* =========================================================
    ADD USER MESSAGE
-===================================== */
+========================================================= */
 
 function addUserMessage(text) {
 
@@ -70,17 +117,19 @@ function addUserMessage(text) {
     );
 
 
-    messages.scrollTop =
-        messages.scrollHeight;
+    scrollToBottom();
 
 }
 
 
-/* =====================================
-   ADD AI MESSAGE
-===================================== */
+/* =========================================================
+   ADD BOT MESSAGE
+========================================================= */
 
-function addBotMessage(text) {
+function addBotMessage(
+    text,
+    agent = selectedAgent
+) {
 
     const wrapper =
         document.createElement("div");
@@ -89,17 +138,21 @@ function addBotMessage(text) {
         "bot-message";
 
 
+    const agentName =
+        agentNames[agent]
+        || agentNames.general;
+
+
     wrapper.innerHTML = `
 
         <div class="bot-avatar">
             ✨
         </div>
 
-        <div>
+        <div class="bot-content">
 
             <strong>
-                ${agentNames[selectedAgent]
-                    || "Himanshi's AI Crew"}
+                ${agentName}
             </strong>
 
             <p></p>
@@ -109,9 +162,12 @@ function addBotMessage(text) {
     `;
 
 
-    wrapper.querySelector(
-        "p"
-    ).textContent = text;
+    const paragraph =
+        wrapper.querySelector("p");
+
+
+    paragraph.textContent =
+        text;
 
 
     messages.appendChild(
@@ -119,96 +175,92 @@ function addBotMessage(text) {
     );
 
 
+    scrollToBottom();
+
+}
+
+
+/* =========================================================
+   SCROLL CHAT TO BOTTOM
+========================================================= */
+
+function scrollToBottom() {
+
     messages.scrollTop =
         messages.scrollHeight;
 
 }
 
 
-/* =====================================
-   AGENT SELECTION
-===================================== */
+/* =========================================================
+   SELECT AGENT
+========================================================= */
+
+function selectAgent(agent) {
+
+    selectedAgent =
+        agent;
+
+
+    document.body.dataset.agent =
+        agent;
+
+
+    if (activeAgent) {
+
+        activeAgent.textContent =
+            agentNames[agent]
+            || agentNames.general;
+
+    }
+
+
+    const greeting =
+        agentGreetings[agent];
+
+
+    if (greeting) {
+
+        addBotMessage(
+            greeting,
+            agent
+        );
+
+    }
+
+
+    input.focus();
+
+}
+
+
+/* =========================================================
+   AGENT CARD CLICK
+========================================================= */
 
 document
-    .querySelectorAll(
-        ".specimen"
-    )
+    .querySelectorAll(".specimen")
     .forEach(card => {
 
-        function wake() {
-
-            selectedAgent =
-                card.dataset.agent;
+        const agent =
+            card.dataset.agent;
 
 
-            document.body.dataset.agent =
-                selectedAgent;
-
-
-            activeAgent.textContent =
-                agentNames[
-                    selectedAgent
-                ];
-
-
-            let greeting = "";
-
-            if (
-                selectedAgent ===
-                "bubbly"
-            ) {
-
-                greeting =
-                    "Bubbly here! 🫧 " +
-                    "Ready to take you on a tour " +
-                    "of Himanshi's projects. " +
-                    "Ask me about anything she's built!";
-
-            }
-
-
-            if (
-                selectedAgent ===
-                "mochi"
-            ) {
-
-                greeting =
-                    "Mochi here! 🍡 " +
-                    "Let's explore Himanshi's technical " +
-                    "toolkit. Ask me about her skills, " +
-                    "languages or technologies!";
-
-            }
-
-
-            if (
-                selectedAgent ===
-                "poppy"
-            ) {
-
-                greeting =
-                    "Poppy here! 🌷 " +
-                    "I'll walk you through Himanshi's " +
-                    "resume, education, experience " +
-                    "and professional journey.";
-
-            }
-
-
-            addBotMessage(
-                greeting
-            );
-
-            input.focus();
-
-        }
-
+        /* Mouse click */
 
         card.addEventListener(
             "click",
-            wake
+            () => {
+
+                selectAgent(
+                    agent
+                );
+
+            }
         );
 
+
+        /* Keyboard accessibility */
 
         card.addEventListener(
             "keydown",
@@ -221,7 +273,10 @@ document
 
                     event.preventDefault();
 
-                    wake();
+
+                    selectAgent(
+                        agent
+                    );
 
                 }
 
@@ -231,9 +286,86 @@ document
     });
 
 
-/* =====================================
+/* =========================================================
+   CALL FASTAPI
+========================================================= */
+
+async function askPortfolioAgent(
+    question,
+    agent = null
+) {
+
+    console.log(
+        "[FRONTEND] Sending request..."
+    );
+
+    console.log(
+        "[QUESTION]",
+        question
+    );
+
+    console.log(
+        "[AGENT]",
+        agent
+    );
+
+
+    const response =
+        await fetch(
+            `${API_URL}/chat`,
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body:
+                    JSON.stringify({
+
+                        message:
+                            question,
+
+                        agent:
+                            agent
+
+                    })
+
+            }
+        );
+
+
+    if (!response.ok) {
+
+        throw new Error(
+            `Backend returned HTTP ${response.status}`
+        );
+
+    }
+
+
+    const data =
+        await response.json();
+
+
+    console.log(
+        "[BACKEND RESPONSE]",
+        data
+    );
+
+
+    return data;
+
+}
+
+
+/* =========================================================
    SEND MESSAGE
-===================================== */
+========================================================= */
 
 async function sendMessage() {
 
@@ -248,6 +380,10 @@ async function sendMessage() {
     }
 
 
+    /* -----------------------------------------
+       SHOW USER MESSAGE
+    ----------------------------------------- */
+
     addUserMessage(
         question
     );
@@ -255,6 +391,10 @@ async function sendMessage() {
 
     input.value = "";
 
+
+    /* -----------------------------------------
+       DISABLE SEND BUTTON
+    ----------------------------------------- */
 
     sendButton.disabled =
         true;
@@ -264,49 +404,31 @@ async function sendMessage() {
         "Thinking...";
 
 
+    /* -----------------------------------------
+       TEMPORARY THINKING MESSAGE
+    ----------------------------------------- */
+
+    const thinkingAgent =
+        selectedAgent
+        || "general";
+
+
     try {
 
-        const response =
-            await fetch(
-                API_URL,
-                {
-
-                    method: "POST",
-
-                    headers: {
-
-                        "Content-Type":
-                            "application/json"
-
-                    },
-
-                    body:
-                        JSON.stringify({
-
-                            message:
-                                question,
-
-                            agent:
-                                selectedAgent
-
-                        })
-
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Backend request failed"
-            );
-
-        }
-
+        /* -------------------------------------
+           CALL BACKEND
+        ------------------------------------- */
 
         const data =
-            await response.json();
+            await askPortfolioAgent(
+                question,
+                selectedAgent
+            );
 
+
+        /* -------------------------------------
+           UPDATE AGENT IF ROUTER SELECTED ONE
+        ------------------------------------- */
 
         if (
             data.agent &&
@@ -316,20 +438,50 @@ async function sendMessage() {
             selectedAgent =
                 data.agent;
 
+
             document.body.dataset.agent =
                 selectedAgent;
 
-            activeAgent.textContent =
-                agentNames[
-                    data.agent
-                ];
+
+            if (activeAgent) {
+
+                activeAgent.textContent =
+                    agentNames[
+                        selectedAgent
+                    ];
+
+            }
 
         }
 
 
-        addBotMessage(
+        /* -------------------------------------
+           GET ANSWER
+        ------------------------------------- */
+
+        const answer =
             data.answer
-        );
+            || data.message
+            || data.response;
+
+
+        if (!answer) {
+
+            addBotMessage(
+                "I received a response, but there wasn't an answer to display.",
+                selectedAgent
+            );
+
+        }
+
+        else {
+
+            addBotMessage(
+                answer,
+                selectedAgent
+            );
+
+        }
 
 
     }
@@ -337,28 +489,37 @@ async function sendMessage() {
     catch (error) {
 
         console.error(
+            "[FRONTEND ERROR]",
             error
         );
 
 
         addBotMessage(
 
-            "Oops! My AI crew seems to be " +
-            "having trouble connecting to the " +
-            "portfolio server right now. " +
-            "Please make sure the backend is running."
+            "Oops! 😅 My AI crew couldn't reach " +
+            "the portfolio server right now. " +
+            "Please make sure the FastAPI backend is running.",
+
+            selectedAgent
 
         );
 
     }
 
+
     finally {
+
+        /* -------------------------------------
+           ENABLE SEND BUTTON
+        ------------------------------------- */
 
         sendButton.disabled =
             false;
 
+
         sendButton.innerHTML =
             "Send <span>➜</span>";
+
 
         input.focus();
 
@@ -367,9 +528,9 @@ async function sendMessage() {
 }
 
 
-/* =====================================
+/* =========================================================
    SEND BUTTON
-===================================== */
+========================================================= */
 
 sendButton.addEventListener(
     "click",
@@ -377,9 +538,9 @@ sendButton.addEventListener(
 );
 
 
-/* =====================================
-   ENTER
-===================================== */
+/* =========================================================
+   ENTER KEY
+========================================================= */
 
 input.addEventListener(
     "keydown",
@@ -400,9 +561,9 @@ input.addEventListener(
 );
 
 
-/* =====================================
-   SUGGESTIONS
-===================================== */
+/* =========================================================
+   SUGGESTION BUTTONS
+========================================================= */
 
 document
     .querySelectorAll(
@@ -415,7 +576,8 @@ document
             () => {
 
                 input.value =
-                    button.textContent;
+                    button.textContent.trim();
+
 
                 sendMessage();
 
@@ -425,35 +587,62 @@ document
     });
 
 
-/* =====================================
-   CLEAR
-===================================== */
+/* =========================================================
+   CLEAR CHAT
+========================================================= */
 
-document
-    .getElementById(
-        "clearChat"
-    )
-    .addEventListener(
+if (clearChat) {
+
+    clearChat.addEventListener(
         "click",
         () => {
 
             messages.innerHTML = "";
 
+
             selectedAgent =
                 null;
 
+
             delete document.body.dataset.agent;
 
-            activeAgent.textContent =
-                "AI Crew";
+
+            if (activeAgent) {
+
+                activeAgent.textContent =
+                    "AI Crew";
+
+            }
+
 
             addBotMessage(
 
                 "Fresh start! ✨ " +
                 "Who would you like to meet — " +
-                "Bubbly, Mochi or Poppy?"
+                "Bubbly, Mochi or Poppy?",
+
+                "general"
 
             );
 
+
+            input.focus();
+
         }
     );
+
+}
+
+
+/* =========================================================
+   INITIAL STATE
+========================================================= */
+
+console.log(
+    "✨ Himanshi AI Portfolio frontend loaded."
+);
+
+console.log(
+    "Backend:",
+    API_URL
+);

@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from mcp_agent import ask_portfolio_agent
+from backend.mcp_agent import ask_portfolio_agent
 
 
 app = FastAPI(
